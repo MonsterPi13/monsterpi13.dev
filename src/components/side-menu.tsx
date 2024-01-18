@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea } from "./scroll-area";
 
 interface SideMenuProps {
   isInner?: boolean;

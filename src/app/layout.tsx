@@ -3,17 +3,11 @@ import "./globals.css";
 import { sharedDescription, sharedTitle } from "@/shared-metadata";
 import { PROFILES } from "@/lib/constants";
 
-import type { Metadata, Viewport } from "next";
 import { cn } from "@/lib/utils";
 import SideMenu from "@/components/side-menu";
 import MenuContent from "@/components/menu-content";
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
-  weight: ["500"],
-});
+import type { Metadata, Viewport } from "next";
 
 const exo2 = Exo_2({
   subsets: ["latin"],
@@ -70,8 +64,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn(exo2.className)}>
       <body>
-        <main className="min-h-screen bg-white">
-          <div className="lg:flex">
+        <main vaul-drawer-wrapper="" className="flex min-h-screen bg-white">
+          <div className="w-full lg:flex">
             <SideMenu>
               <MenuContent />
             </SideMenu>
