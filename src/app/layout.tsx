@@ -1,12 +1,23 @@
-import React from "react";
-import { Inter } from "next/font/google";
+import { JetBrains_Mono, Exo_2 } from "next/font/google";
 import "./globals.css";
 import { sharedDescription, sharedTitle } from "@/shared-metadata";
 import { PROFILES } from "@/lib/constants";
 
 import type { Metadata, Viewport } from "next";
+import { cn } from "@/lib/utils";
+import SideMenu from "@/components/side-menu";
+import MenuContent from "@/components/menu-content";
 
-const inter = Inter({ subsets: ["latin"] });
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+  weight: ["500"],
+});
+
+const exo2 = Exo_2({
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://monsterpi13.dev"),
@@ -57,8 +68,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={cn(exo2.className)}>
+      <body>
+        <main className="min-h-screen bg-white">
+          <div className="lg:flex">
+            <SideMenu>
+              <MenuContent />
+            </SideMenu>
+            <div className="flex flex-1">{children}</div>
+          </div>
+        </main>
+      </body>
     </html>
   );
 }
