@@ -17,9 +17,9 @@ export default function Home() {
           </p>
           <p>
             I am currently a Senior Frontend Software Engineer at Enn Group.
-            Previously, I led front-end architecture at China Telecom's Game
-            Department. Looking ahead, I aspire to transition into freelance
-            work in the future.
+            Previously, I led front-end architecture at China Telecom&apos;s
+            Game Department. Looking ahead, I aspire to transition into
+            freelance work in the future.
           </p>
           <Button asChild variant="link" className="inline px-0">
             <Link href="/writing">
