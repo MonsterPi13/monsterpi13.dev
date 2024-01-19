@@ -19,18 +19,7 @@ async function fetchGraphQL(query: string, preview = isDevelopment) {
       next: { tags: ["articles"] },
     }
   );
-  console.log(
-    "[process.env.CONTENTFUL_SPACE_ID]",
-    process.env.CONTENTFUL_SPACE_ID
-  );
-  console.log(
-    "Authorization",
-    `Bearer ${
-      preview
-        ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
-        : process.env.CONTENTFUL_ACCESS_TOKEN
-    }`
-  );
+  console.log("[query]", JSON.stringify({ query }));
   if (!res.ok) return undefined;
   return res.json();
 }
@@ -39,7 +28,6 @@ export async function getPage(
   slug: string,
   preview = isDevelopment
 ): Promise<SlugPageRes> {
-  console.log("[preview]", preview);
   const entry = await fetchGraphQL(
     `query {
       pageCollection(where: { slug: "${slug}" }, preview: ${preview}, limit: 1) {
