@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { ScrollArea } from "@/components/scroll-area";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 import FloatingHeader from "@/components/floating-header";
 import PageTitle from "@/components/page-title";

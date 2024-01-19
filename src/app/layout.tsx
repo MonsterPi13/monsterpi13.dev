@@ -1,11 +1,13 @@
-import { JetBrains_Mono, Exo_2 } from "next/font/google";
-import "./globals.css";
+import { draftMode } from "next/headers";
+import { Exo_2 } from "next/font/google";
+import { EyeIcon } from "lucide-react";
 import { sharedDescription, sharedTitle } from "@/shared-metadata";
 import { PROFILES } from "@/lib/constants";
+import "./globals.css";
 
-import { cn } from "@/lib/utils";
 import SideMenu from "@/components/side-menu";
 import MenuContent from "@/components/menu-content";
+import { cn } from "@/lib/utils";
 
 import type { Metadata, Viewport } from "next";
 
@@ -61,10 +63,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { isEnabled } = draftMode();
+
   return (
     <html lang="en" className={cn(exo2.className)}>
       <body>
         <main vaul-drawer-wrapper="" className="flex min-h-screen bg-white">
+          {isEnabled && (
+            <div className="absolute bottom-0 left-0 right-0 z-50 flex h-12 w-full items-center justify-center bg-green-500 text-center text-sm font-medium text-white">
+              <div className="flex items-center gap-2">
+                <EyeIcon size={16} />
+                <span>Draft mode is enabled</span>
+              </div>
+            </div>
+          )}
           <div className="w-full lg:flex">
             <SideMenu>
               <MenuContent />
