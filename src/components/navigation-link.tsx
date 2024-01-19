@@ -47,10 +47,6 @@ const NavigationLink = ({
     isActive = href.slice(1) === currentPathname;
   }
 
-  const handleClickBtn = () => {
-    getPage("stack", false);
-  };
-
   return (
     <Link
       key={href}
@@ -59,7 +55,6 @@ const NavigationLink = ({
         "group flex items-center justify-between rounded-lg p-2",
         isActive ? "bg-black text-white" : "hover:bg-gray-200"
       )}
-      onClick={handleClickBtn}
     >
       <span className="flex items-center gap-2">
         {Icon}
