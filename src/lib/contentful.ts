@@ -17,7 +17,7 @@ async function fetchGraphQL(query: string, preview = isDevelopment) {
       },
       body: JSON.stringify({ query }),
       next: { tags: ["articles"] },
-      // cache: "no-cache",
+      cache: "no-cache",
     }
   );
   if (!res.ok) return undefined;
