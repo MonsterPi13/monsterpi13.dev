@@ -19,6 +19,7 @@ async function fetchData(slug: string) {
   const { isEnabled } = draftMode();
   const page = await getPage(slug, isDevelopment ? true : isEnabled);
   if (!page) notFound();
+  console.log("[page]", page);
   return { page };
 }
 
