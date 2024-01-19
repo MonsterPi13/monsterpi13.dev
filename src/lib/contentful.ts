@@ -18,7 +18,6 @@ async function fetchGraphQL(query: string, preview = isDevelopment) {
       body: JSON.stringify({ query }),
     }
   );
-  // console.log("[body]", JSON.stringify({ query }));
   if (!res.ok) return undefined;
   return res.json();
 }

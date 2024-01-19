@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
+import { Link } from "@/components/link";
 
 import { dasherize } from "@/lib/utils";
 import { CodeBlock } from "./code-block";
@@ -169,8 +169,6 @@ const RichText = ({ content }: RichTextProps) => {
   if (!content) {
     return null;
   }
-
-  console.log(content);
 
   return documentToReactComponents(
     content.json,
