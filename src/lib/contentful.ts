@@ -20,7 +20,6 @@ async function fetchGraphQL(query: string, preview = isDevelopment) {
       // cache: "no-cache",
     }
   );
-  console.log("[query]", JSON.stringify({ query }));
   if (!res.ok) return undefined;
   return res.json();
 }
