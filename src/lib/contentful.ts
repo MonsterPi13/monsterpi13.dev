@@ -17,7 +17,7 @@ async function fetchGraphQL(query: string, preview = isDevelopment) {
       },
       body: JSON.stringify({ query }),
       next: { tags: ["articles"] },
-      cache: "no-cache",
+      // cache: "no-cache",
     }
   );
   console.log("[query]", JSON.stringify({ query }));
@@ -64,4 +64,25 @@ export async function getPage(
   );
 
   return entry?.data?.pageCollection?.items?.[0];
+}
+
+export async function getAllPageSlugs(preview = isDevelopment) {
+  const entries = await fetchGraphQL(
+    `query {
+      pageCollection(preview: ${preview}) {
+        items {
+          slug
+          hasCustomPage
+          sys {
+            id
+            firstPublishedAt
+            publishedAt
+          }
+        }
+      }
+    }`,
+    preview
+  );
+
+  return entries?.data?.pageCollection?.items ?? [];
 }

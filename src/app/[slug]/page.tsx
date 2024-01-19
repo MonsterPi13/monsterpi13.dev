@@ -5,7 +5,7 @@ import FloatingHeader from "@/components/floating-header";
 import { GradientBg } from "@/components/gradient-bg";
 import PageTitle from "@/components/page-title";
 import { ScrollArea } from "@/components/scroll-area";
-import { getPage } from "@/lib/contentful";
+import { getPage, getAllPageSlugs } from "@/lib/contentful";
 import { isDevelopment } from "@/lib/utils";
 import RickText from "@/components/contentful/rich-text";
 
@@ -13,6 +13,16 @@ interface PageProps {
   params: {
     slug: string;
   };
+}
+
+export async function generateStaticParams() {
+  const allPages = await getAllPageSlugs();
+
+  return allPages
+    .filter((page: any) => !page.hasCustomPage) // filter out pages that have custom pages, e.g. /journey
+    .map((page: any) => ({
+      slug: page.slug,
+    }));
 }
 
 async function fetchData(slug: string) {
