@@ -17,6 +17,7 @@ const JourneyCard = ({
   image,
   index,
 }: JourneyCardProps) => {
+  console.log("[description]", description);
   return (
     <div className="word-break-word flex flex-col">
       <span className="font-semibold tracking-tight">{title}</span>

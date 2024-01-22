@@ -1,9 +1,9 @@
+import Image from "next/image";
 import Markdown from "markdown-to-jsx";
+import { TweetCard } from "./tweet-card/tweet-card";
+import { Link } from "@/components/link";
 
 import type { MarkdownToJSX } from "markdown-to-jsx";
-import Image from "next/image";
-import Link from "next/link";
-import { TweetCard } from "./tweet-card/tweet-card";
 
 interface MarkdownRendererProps {
   options?: MarkdownToJSX.Options;

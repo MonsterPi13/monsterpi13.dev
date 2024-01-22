@@ -1,7 +1,7 @@
 import { PlusIcon } from "lucide-react";
 import JourneyCard from "@/components/Journey-card";
 import FloatingHeader from "@/components/floating-header";
-import { GradientBg } from "@/components/gradient-bg";
+import { GradientBg3 } from "@/components/gradient-bg";
 import PageTitle from "@/components/page-title";
 import { ScrollArea } from "@/components/scroll-area";
 import { getAllLogbook, getPageSeo } from "@/lib/contentful";
@@ -38,7 +38,7 @@ async function Journey() {
 
   return (
     <ScrollArea className="flex flex-col" hasScrollTitle>
-      <GradientBg />
+      <GradientBg3 />
       <FloatingHeader scrollTitle="Journey" />
       <div className="content-wrapper">
         <div className="content">
@@ -49,11 +49,11 @@ async function Journey() {
                 key={`data_${itemIndex}`}
                 className="flex flex-col items-baseline gap-6 md:flex-row md:gap-12"
               >
-                <div className="flex items-center">
+                <div className="flex items-center w-14">
                   <h2>{item.year}</h2>
                   <hr className="my-0 ml-4 flex-1 border-dashed border-gray-200" />
                 </div>
-                <section>
+                <section className="flex-1">
                   {item.logs.map((log, logIndex) => (
                     <div
                       key={`data_${itemIndex}_log_${logIndex}`}
