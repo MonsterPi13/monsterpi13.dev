@@ -27,7 +27,6 @@ const FloatingHeader = ({
 
   useEffect(() => {
     const scrollAreaElem = document.querySelector(`#${SCROLL_AREA_ID}`);
-    console.log(scrollAreaElem);
 
     const onScroll = (e: Event) => {
       const scrollY = (e.target as HTMLElement).scrollTop;

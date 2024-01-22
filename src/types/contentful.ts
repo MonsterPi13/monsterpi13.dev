@@ -8,3 +8,18 @@ export interface SlugPageRes {
     links: Record<string, any>;
   };
 }
+
+export interface ContentfulImage {
+  title: string;
+  description: string;
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface LogbookRawItem {
+  title: string;
+  date: string;
+  description: string;
+  image: null | ContentfulImage;
+}

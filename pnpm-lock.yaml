@@ -32,6 +32,9 @@ dependencies:
   lucide-react:
     specifier: ^0.312.0
     version: registry.npmmirror.com/lucide-react@0.312.0(react@18.2.0)
+  markdown-to-jsx:
+    specifier: ^7.4.0
+    version: registry.npmmirror.com/markdown-to-jsx@7.4.0(react@18.2.0)
   next:
     specifier: 14.0.4
     version: registry.npmmirror.com/next@14.0.4(react-dom@18.2.0)(react@18.2.0)
@@ -2928,6 +2931,18 @@ packages:
     version: 0.312.0
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: registry.npmmirror.com/react@18.2.0
+    dev: false
+
+  registry.npmmirror.com/markdown-to-jsx@7.4.0(react@18.2.0):
+    resolution: {integrity: sha512-zilc+MIkVVXPyTb4iIUTIz9yyqfcWjszGXnwF9K/aiBWcHXFcmdEMTkG01/oQhwSCH7SY1BnG6+ev5BzWmbPrg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/markdown-to-jsx/-/markdown-to-jsx-7.4.0.tgz}
+    id: registry.npmmirror.com/markdown-to-jsx/7.4.0
+    name: markdown-to-jsx
+    version: 7.4.0
+    engines: {node: '>= 10'}
+    peerDependencies:
+      react: '>= 0.14.0'
     dependencies:
       react: registry.npmmirror.com/react@18.2.0
     dev: false

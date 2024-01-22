@@ -1,6 +1,6 @@
 import { isDevelopment } from "./utils";
 
-import type { SlugPageRes } from "@/types/contentful";
+import type { LogbookRawItem, SlugPageRes } from "@/types/contentful";
 
 async function fetchGraphQL(query: string, preview = isDevelopment) {
   const res = await fetch(
@@ -22,6 +22,26 @@ async function fetchGraphQL(query: string, preview = isDevelopment) {
   );
   if (!res.ok) return undefined;
   return res.json();
+}
+
+export async function getPageSeo(slug: string, preview = isDevelopment) {
+  const entry = await fetchGraphQL(
+    `query {
+      pageCollection(where: { slug: "${slug}" }, preview: ${preview}, limit: 1) {
+        items {
+          seo {
+            title
+            description
+            ogImageTitle
+            ogImageSubtitle
+          }
+        }
+      }
+    }`,
+    preview
+  );
+
+  return entry?.data?.pageCollection?.items?.[0];
 }
 
 export async function getPage(
@@ -84,4 +104,30 @@ export async function getAllPageSlugs(preview = isDevelopment) {
   );
 
   return entries?.data?.pageCollection?.items ?? [];
+}
+
+export async function getAllLogbook(
+  preview = isDevelopment
+): Promise<LogbookRawItem[]> {
+  const entries = await fetchGraphQL(
+    `query {
+      logbookCollection(order: date_DESC, preview: ${preview}) {
+        items {
+          title
+          date
+          description
+          image {
+            url
+            title
+            description
+            width
+            height
+          }
+        }
+      }
+    }`,
+    preview
+  );
+
+  return entries?.data?.logbookCollection?.items ?? [];
 }
