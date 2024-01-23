@@ -9,7 +9,7 @@ import RichText from "@/components/contentful/rich-text";
 import { getDateTimeFormat, isDevelopment } from "@/lib/utils";
 import { getPost, getWritingSeo, getAllPostSlugs } from "@/lib/contentful";
 
-// export const dynamic = "force-static";
+export const dynamic = "force-static";
 
 interface WritingSlugPageProps {
   params: {
@@ -17,10 +17,10 @@ interface WritingSlugPageProps {
   };
 }
 
-// export async function generateStaticParams() {
-//   const allPosts = await getAllPostSlugs();
-//   return allPosts.map((post) => ({ slug: post.slug }));
-// }
+export async function generateStaticParams() {
+  const allPosts = await getAllPostSlugs();
+  return allPosts.map((post) => ({ slug: post.slug }));
+}
 
 async function fetchData(slug: string) {
   const { isEnabled } = draftMode();
