@@ -2,10 +2,10 @@ import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
+  console.log("[pathname]", pathname);
   const writingSlug = pathname.match(/\/writing\/(.*)/)?.[1];
 
   async function sendAnalytics() {
-    console.log(writingSlug, new Date().getTime());
     if (!writingSlug) return;
 
     const URL =
