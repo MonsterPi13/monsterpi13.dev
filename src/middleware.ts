@@ -5,7 +5,7 @@ export function middleware(request: NextRequest, event: NextFetchEvent) {
   const writingSlug = pathname.match(/\/writing\/(.*)/)?.[1];
 
   async function sendAnalytics() {
-    console.log("[writingSlug]", writingSlug);
+    console.log(writingSlug, new Date().getTime());
     if (!writingSlug) return;
 
     const URL =
