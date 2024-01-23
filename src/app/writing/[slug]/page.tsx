@@ -9,6 +9,8 @@ import RichText from "@/components/contentful/rich-text";
 import { getDateTimeFormat, isDevelopment } from "@/lib/utils";
 import { getPost, getWritingSeo, getAllPostSlugs } from "@/lib/contentful";
 
+export const dynamic = "force-dynamic";
+
 interface WritingSlugPageProps {
   params: {
     slug: string;
@@ -17,6 +19,7 @@ interface WritingSlugPageProps {
 
 export async function generateStaticParams() {
   const allPosts = await getAllPostSlugs();
+  console.log("[allPosts]", allPosts);
   return allPosts.map((post) => ({ slug: post.slug }));
 }
 
