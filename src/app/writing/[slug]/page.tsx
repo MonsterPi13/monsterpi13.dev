@@ -19,7 +19,6 @@ interface WritingSlugPageProps {
 
 export async function generateStaticParams() {
   const allPosts = await getAllPostSlugs();
-  console.log("[allPosts]", allPosts);
   return allPosts.map((post) => ({ slug: post.slug }));
 }
 
