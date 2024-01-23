@@ -1,3 +1,4 @@
+import { PostItem } from "@/types/contentful";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -32,3 +33,45 @@ export const dasherize = (text: string) =>
  * @returns A boolean value indicating whether the current environment is set to development mode.
  */
 export const isDevelopment = process.env.NODE_ENV === "development";
+
+/**
+ * Sorts an array of blog post objects based on their date field (only for old blog posts) or publication dates in descending order.
+ * The function compares the 'date' property of each post or 'firstPublishedAt' property from the 'sys' object.
+ * The posts are sorted by creating Date objects from the publication dates and comparing them.
+ * @param posts The array of blog post objects to be sorted.
+ * @returns The sorted array of blog posts in descending order based on their publication dates.
+ */
+export const getSortedPosts = (posts: PostItem[]) => {
+  return posts.sort((a, b) => {
+    const dateA = a.date || a.sys.firstPublishedAt;
+    const dateB = b.date || b.sys.firstPublishedAt;
+    return new Date(dateB).getTime() - new Date(dateA).getTime();
+  });
+};
+
+/**
+ * Formats a given date string into a localized date representation based on the 'en-US' locale.
+ * The resulting date format includes the full month name, two-digit day, and the numeric year.
+ * e.g. 'June 23, 1992'
+ * @param date The date string to be formatted.
+ * @returns A localized date string representation formatted as 'Month Day, Year'.
+ */
+export const getDateTimeFormat = (date: string) => {
+  const dateObj = new Date(date);
+  return Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  }).format(dateObj);
+};
+
+/**
+ * Initializes an instance of `Intl.NumberFormat` named `viewCountFormatter`
+ * with the 'nl-NL' locale for formatting view counts.
+ *
+ * Example usage:
+ * const count = 1000000;
+ * const formattedCount = viewCountFormatter.format(count);
+ * console.log(formattedCount); // Output: "1,000,000"
+ */
+export const viewCountFormatter = new Intl.NumberFormat("en-US");

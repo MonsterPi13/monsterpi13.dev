@@ -23,3 +23,19 @@ export interface LogbookRawItem {
   description: string;
   image: null | ContentfulImage;
 }
+
+export interface PostItem {
+  slug: string;
+  title: string;
+  content: string;
+  date: string;
+  sys: {
+    firstPublishedAt: string;
+    publishedAt: string;
+  };
+}
+
+export interface ViewItem {
+  slug: string;
+  view_count: number;
+}

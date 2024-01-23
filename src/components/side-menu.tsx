@@ -1,13 +1,20 @@
 "use client";
 
+import Link from "next/link";
+import { Button } from "./ui/button";
+
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "./scroll-area";
 
 interface SideMenuProps {
+  title?: string;
+  href?: string;
   isInner?: boolean;
 }
 
 const SideMenu = ({
+  title,
+  href,
   children,
   isInner = false,
 }: React.PropsWithChildren<SideMenuProps>) => {
@@ -18,6 +25,15 @@ const SideMenu = ({
         isInner ? "lg:w-80 xl:w-96" : "lg:w-60 xl:w-72"
       )}
     >
+      {title && (
+        <div className="sticky top-0 z-10 border-b bg-zinc-50 px-5 py-3">
+          <div className="flex items-center justify-between">
+            <div className="text-sm font-semibold tracking-tight">
+              {href ? <Link href={href}>{title}</Link> : <span>{title}</span>}
+            </div>
+          </div>
+        </div>
+      )}
       <div className="bg-zinc-50 p-3">{children}</div>
     </ScrollArea>
   );

@@ -1,6 +1,6 @@
 import { isDevelopment } from "./utils";
 
-import type { LogbookRawItem, SlugPageRes } from "@/types/contentful";
+import type { LogbookRawItem, PostItem, SlugPageRes } from "@/types/contentful";
 
 async function fetchGraphQL(query: string, preview = isDevelopment) {
   const res = await fetch(
@@ -22,6 +22,116 @@ async function fetchGraphQL(query: string, preview = isDevelopment) {
   );
   if (!res.ok) return undefined;
   return res.json();
+}
+
+export async function getAllPosts(
+  preview = isDevelopment
+): Promise<PostItem[]> {
+  const entries = await fetchGraphQL(
+    `query {
+      postCollection(preview: ${preview}) {
+        items {
+          title
+          slug
+          date
+          sys {
+            firstPublishedAt
+            publishedAt
+          }
+        }
+      }
+    }`,
+    preview
+  );
+
+  return entries?.data?.postCollection?.items ?? [];
+}
+
+export async function getPost(slug: string, preview = isDevelopment) {
+  const entry = await fetchGraphQL(
+    `query {
+      postCollection(where: { slug: "${slug}" }, preview: ${preview}, limit: 1) {
+        items {
+          title
+          slug
+          date
+          seo {
+            title
+            description
+          }
+          content {
+            json
+            links {
+              assets {
+                block {
+                  sys {
+                    id
+                  }
+                  url
+                  title
+                  width
+                  height
+                  description
+                }
+              }
+              entries {
+                inline {
+                  sys {
+                    id
+                  }
+                  __typename
+                  ... on ContentEmbed {
+                    title
+                    embedUrl
+                    type
+                  }
+                  ... on CodeBlock {
+                    title
+                    code
+                  }
+                  ... on Tweet {
+                    id
+                  }
+                }
+              }
+            }
+          }
+          sys {
+            firstPublishedAt
+            publishedAt
+          }
+        }
+      }
+    }`,
+    preview
+  );
+
+  return entry?.data?.postCollection?.items?.[0];
+}
+
+export async function getWritingSeo(slug: string, preview = isDevelopment) {
+  const entry = await fetchGraphQL(
+    `query {
+      postCollection(where: { slug: "${slug}" }, preview: ${preview}, limit: 1) {
+        items {
+          date
+          seo {
+            title
+            description
+            ogImageTitle
+            ogImageSubtitle
+          }
+          sys {
+            firstPublishedAt
+            publishedAt
+          }
+        }
+      }
+    }`,
+    preview
+  );
+
+  return entry?.data?.postCollection?.items?.[0];
 }
 
 export async function getPageSeo(slug: string, preview = isDevelopment) {
@@ -104,6 +214,23 @@ export async function getAllPageSlugs(preview = isDevelopment) {
   );
 
   return entries?.data?.pageCollection?.items ?? [];
+}
+
+export async function getAllPostSlugs(
+  preview = isDevelopment
+): Promise<{ slug: string }[]> {
+  const entries = await fetchGraphQL(
+    `query {
+      postCollection(preview: ${preview}) {
+        items {
+          slug
+        }
+      }
+    }`,
+    preview
+  );
+
+  return entries?.data?.postCollection?.items ?? [];
 }
 
 export async function getAllLogbook(

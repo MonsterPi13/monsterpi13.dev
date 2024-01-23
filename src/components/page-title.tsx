@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 interface PageTitleProps {
   title: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   className?: string;
 }
 
