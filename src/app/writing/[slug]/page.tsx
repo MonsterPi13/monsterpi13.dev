@@ -9,7 +9,7 @@ import RichText from "@/components/contentful/rich-text";
 import { getDateTimeFormat, isDevelopment } from "@/lib/utils";
 import { getPost, getWritingSeo, getAllPostSlugs } from "@/lib/contentful";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 interface WritingSlugPageProps {
   params: {

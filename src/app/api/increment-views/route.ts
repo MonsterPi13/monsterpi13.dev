@@ -14,8 +14,7 @@ export async function POST(request: NextRequest) {
     );
 
   try {
-    const res = await supabase.rpc("increment_view_count", { page_slug: slug });
-    console.log("[18]", res);
+    await supabase.rpc("increment_view_count", { page_slug: slug });
     return NextResponse.json(
       { messsage: `View count incremented successfully for slug: ${slug}` },
       { status: 200 }
