@@ -30,6 +30,7 @@ export interface PostItem {
   content: string;
   date: string;
   sys: {
+    id: string;
     firstPublishedAt: string;
     publishedAt: string;
   };

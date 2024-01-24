@@ -1,23 +1,24 @@
-import Link from "next/link";
-import { Suspense } from "react";
-import { ScrollArea } from "@/components/scroll-area";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link'
+import { Suspense } from 'react'
+import { ScrollArea } from '@/components/scroll-area'
+import { Button } from '@/components/ui/button'
 
-import FloatingHeader from "@/components/floating-header";
-import PageTitle from "@/components/page-title";
-import LoadingSpinner from "@/components/loading-spinner";
-import WritingList from "@/components/writing-list";
-import { getAllPosts } from "@/lib/contentful";
-import { getSortedPosts } from "@/lib/utils";
+import FloatingHeader from '@/components/floating-header'
+import PageTitle from '@/components/page-title'
+import LoadingSpinner from '@/components/loading-spinner'
+import WritingList from '@/components/writing-list'
+import { getAllPosts } from '@/lib/contentful'
+import { getSortedPosts } from '@/lib/utils'
 
 async function fetchData() {
-  const allPosts = await getAllPosts();
-  return { allPosts };
+  const allPosts = await getAllPosts()
+  console.log('[allpost]', allPosts)
+  return { allPosts }
 }
 
 export default async function Home() {
-  const { allPosts } = await fetchData();
-  const sortedPosts = getSortedPosts(allPosts);
+  const { allPosts } = await fetchData()
+  const sortedPosts = getSortedPosts(allPosts)
 
   return (
     <ScrollArea hasScrollTitle>
@@ -29,10 +30,9 @@ export default async function Home() {
             {`Hi! 👋 I'm Tristan (or Peng, if you prefer). I'm a software engineer and Dota enthusiast based in Nanjing, China.`}
           </p>
           <p>
-            I am currently a Senior Frontend Software Engineer at Enn Group.
-            Previously, I led front-end architecture at China Telecom&apos;s
-            Game Department. Looking ahead, I aspire to transition into
-            freelance work in the future.
+            I am currently a Senior Frontend Software Engineer at Enn Group. Previously, I led front-end architecture at
+            China Telecom&apos;s Game Department. Looking ahead, I aspire to transition into freelance work in the
+            future.
           </p>
           <Button asChild variant="link" className="inline px-0">
             <Link href="/writing">
@@ -45,5 +45,5 @@ export default async function Home() {
         </div>
       </div>
     </ScrollArea>
-  );
+  )
 }

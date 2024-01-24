@@ -1,32 +1,26 @@
-import { isDevelopment } from "./utils";
+import { isDevelopment } from './utils'
 
-import type { LogbookRawItem, PostItem, SlugPageRes } from "@/types/contentful";
+import type { LogbookRawItem, PostItem, SlugPageRes } from '@/types/contentful'
 
 async function fetchGraphQL(query: string, preview = isDevelopment) {
-  const res = await fetch(
-    `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${
-          preview
-            ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
-            : process.env.CONTENTFUL_ACCESS_TOKEN
-        }`,
-      },
-      body: JSON.stringify({ query }),
-      next: { tags: ["articles"] },
-      cache: "no-cache",
-    }
-  );
-  if (!res.ok) return undefined;
-  return res.json();
+  // console.log('[body]', JSON.stringify({ query }))
+  const res = await fetch(`https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${
+        preview ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN : process.env.CONTENTFUL_ACCESS_TOKEN
+      }`
+    },
+    body: JSON.stringify({ query }),
+    next: { tags: ['articles'] },
+    cache: 'no-cache'
+  })
+  if (!res.ok) return undefined
+  return res.json()
 }
 
-export async function getAllPosts(
-  preview = isDevelopment
-): Promise<PostItem[]> {
+export async function getAllPosts(preview = isDevelopment): Promise<PostItem[]> {
   const entries = await fetchGraphQL(
     `query {
       postCollection(preview: ${preview}) {
@@ -35,6 +29,7 @@ export async function getAllPosts(
           slug
           date
           sys {
+            id
             firstPublishedAt
             publishedAt
           }
@@ -42,9 +37,9 @@ export async function getAllPosts(
       }
     }`,
     preview
-  );
+  )
 
-  return entries?.data?.postCollection?.items ?? [];
+  return entries?.data?.postCollection?.items ?? []
 }
 
 export async function getPost(slug: string, preview = isDevelopment) {
@@ -97,6 +92,7 @@ export async function getPost(slug: string, preview = isDevelopment) {
             }
           }
           sys {
+            id
             firstPublishedAt
             publishedAt
           }
@@ -104,9 +100,31 @@ export async function getPost(slug: string, preview = isDevelopment) {
       }
     }`,
     preview
-  );
+  )
 
-  return entry?.data?.postCollection?.items?.[0];
+  return entry?.data?.postCollection?.items?.[0]
+}
+
+export async function getPostById(id: string, preview = isDevelopment) {
+  const entry = await fetchGraphQL(
+    `query {
+      postCollection(where: { sys: {id: "${id}"}  }, preview: ${preview}, limit: 1) {
+        items {
+          slug
+        }
+      }
+    }`,
+    preview
+  )
+  console.log(`query {
+    postCollection(where: { sys: {id: "${id}"}  }, preview: ${preview}, limit: 1) {
+      items {
+        slug
+      }
+    }
+  }`)
+
+  return entry?.data?.postCollection?.items?.[0]?.slug
 }
 
 export async function getWritingSeo(slug: string, preview = isDevelopment) {
@@ -129,9 +147,9 @@ export async function getWritingSeo(slug: string, preview = isDevelopment) {
       }
     }`,
     preview
-  );
+  )
 
-  return entry?.data?.postCollection?.items?.[0];
+  return entry?.data?.postCollection?.items?.[0]
 }
 
 export async function getPageSeo(slug: string, preview = isDevelopment) {
@@ -149,15 +167,12 @@ export async function getPageSeo(slug: string, preview = isDevelopment) {
       }
     }`,
     preview
-  );
+  )
 
-  return entry?.data?.pageCollection?.items?.[0];
+  return entry?.data?.pageCollection?.items?.[0]
 }
 
-export async function getPage(
-  slug: string,
-  preview = isDevelopment
-): Promise<SlugPageRes> {
+export async function getPage(slug: string, preview = isDevelopment): Promise<SlugPageRes> {
   const entry = await fetchGraphQL(
     `query {
       pageCollection(where: { slug: "${slug}" }, preview: ${preview}, limit: 1) {
@@ -190,9 +205,9 @@ export async function getPage(
       }
     }`,
     preview
-  );
+  )
 
-  return entry?.data?.pageCollection?.items?.[0];
+  return entry?.data?.pageCollection?.items?.[0]
 }
 
 export async function getAllPageSlugs(preview = isDevelopment) {
@@ -211,14 +226,12 @@ export async function getAllPageSlugs(preview = isDevelopment) {
       }
     }`,
     preview
-  );
+  )
 
-  return entries?.data?.pageCollection?.items ?? [];
+  return entries?.data?.pageCollection?.items ?? []
 }
 
-export async function getAllPostSlugs(
-  preview = isDevelopment
-): Promise<{ slug: string }[]> {
+export async function getAllPostSlugs(preview = isDevelopment): Promise<{ slug: string }[]> {
   const entries = await fetchGraphQL(
     `query {
       postCollection(preview: ${preview}) {
@@ -228,14 +241,12 @@ export async function getAllPostSlugs(
       }
     }`,
     preview
-  );
+  )
 
-  return entries?.data?.postCollection?.items ?? [];
+  return entries?.data?.postCollection?.items ?? []
 }
 
-export async function getAllLogbook(
-  preview = isDevelopment
-): Promise<LogbookRawItem[]> {
+export async function getAllLogbook(preview = isDevelopment): Promise<LogbookRawItem[]> {
   const entries = await fetchGraphQL(
     `query {
       logbookCollection(order: date_DESC, preview: ${preview}) {
@@ -254,7 +265,7 @@ export async function getAllLogbook(
       }
     }`,
     preview
-  );
+  )
 
-  return entries?.data?.logbookCollection?.items ?? [];
+  return entries?.data?.logbookCollection?.items ?? []
 }
