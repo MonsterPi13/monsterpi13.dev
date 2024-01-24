@@ -11,8 +11,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: 'Invalid secret' }, { status: 401 })
   }
 
-  const searchParams = request.nextUrl.searchParams
-  const id = searchParams.get('id')
+  const data = await request.json()
+  const { id } = data
   if (!id) return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 })
 
   const slug = await getPostById(id)
