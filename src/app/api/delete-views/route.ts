@@ -15,7 +15,8 @@ export async function POST(request: NextRequest) {
   if (!id) return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 })
 
   try {
-    const res = await supabase.rpc('delete_view_count', { id: id })
+    const res = await supabase.rpc('delete_view_count', { entry_id: id })
+    console.log('[res]', res)
     return NextResponse.json({ messsage: `View count Deleted successfully for id: ${id}` }, { status: 200 })
   } catch (error: any) {
     console.error('Error incrementing view count:', error)
