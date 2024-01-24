@@ -12,7 +12,6 @@ import { getSortedPosts } from '@/lib/utils'
 
 async function fetchData() {
   const allPosts = await getAllPosts()
-  console.log('[allpost]', allPosts)
   return { allPosts }
 }
 
