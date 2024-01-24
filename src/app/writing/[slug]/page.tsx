@@ -1,71 +1,69 @@
-import { draftMode } from "next/headers";
-import { notFound } from "next/navigation";
-import FloatingHeader from "@/components/floating-header";
-import { ScrollArea } from "@/components/scroll-area";
-import WritingViews from "@/components/writing-views";
-import PageTitle from "@/components/page-title";
-import RichText from "@/components/contentful/rich-text";
+import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
+import FloatingHeader from '@/components/floating-header'
+import { ScrollArea } from '@/components/scroll-area'
+import WritingViews from '@/components/writing-views'
+import PageTitle from '@/components/page-title'
+import RichText from '@/components/contentful/rich-text'
 
-import { getDateTimeFormat, isDevelopment } from "@/lib/utils";
-import { getPost, getWritingSeo, getAllPostSlugs } from "@/lib/contentful";
+import { getDateTimeFormat, isDevelopment } from '@/lib/utils'
+import { getPost, getWritingSeo, getAllPostSlugs } from '@/lib/contentful'
 
-export const dynamic = "force-static";
+export const dynamic = 'force-dynamic'
 
 interface WritingSlugPageProps {
   params: {
-    slug: string;
-  };
+    slug: string
+  }
 }
 
 export async function generateStaticParams() {
-  const allPosts = await getAllPostSlugs();
-  return allPosts.map((post) => ({ slug: post.slug }));
+  const allPosts = await getAllPostSlugs()
+  return allPosts.map((post) => ({ slug: post.slug }))
 }
 
 async function fetchData(slug: string) {
-  const { isEnabled } = draftMode();
-  const data = await getPost(slug, isDevelopment ? true : isEnabled);
+  const { isEnabled } = draftMode()
+  const data = await getPost(slug, isDevelopment ? true : isEnabled)
 
-  if (!data) notFound();
+  if (!data) notFound()
 
   return {
-    data,
-  };
+    data
+  }
 }
 
-export default async function WritingSlugPage({
-  params,
-}: WritingSlugPageProps) {
-  const { slug } = params;
-  const { data } = await fetchData(slug);
+export default async function WritingSlugPage({ params }: WritingSlugPageProps) {
+  const { slug } = params
+  const { data } = await fetchData(slug)
 
   const {
     title,
     date,
     seo: { title: seoTitle, description: seoDescription },
     content,
-    sys: { firstPublishedAt, publishedAt: updatedAt },
-  } = data;
+    sys: { firstPublishedAt, publishedAt: updatedAt }
+  } = data
 
-  const postDate = date || firstPublishedAt;
-  const dateString = getDateTimeFormat(postDate);
+  const postDate = date || firstPublishedAt
+  const dateString = getDateTimeFormat(postDate)
 
-  const datePublished = new Date(postDate).toISOString();
-  const dateModified = new Date(updatedAt).toISOString();
+  const datePublished = new Date(postDate).toISOString()
+  const dateModified = new Date(updatedAt).toISOString()
 
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
     headline: seoTitle,
     description: seoDescription,
     datePublished,
     dateModified,
     author: {
-      "@type": "Person",
-      name: "MonsterPi13",
+      '@type': 'Person',
+      name: 'MonsterPi13'
     },
-    url: `https://monster.dev/writing/${slug}`,
-  };
+    url: `https://monster.dev/writing/${slug}`
+  }
 
   return (
     <>
@@ -88,29 +86,26 @@ export default async function WritingSlugPage({
           </article>
         </div>
       </ScrollArea>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd, null, 2) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd, null, 2) }} />
     </>
-  );
+  )
 }
 
 export async function generateMetadata({ params }: WritingSlugPageProps) {
-  const { slug } = params;
-  const seoData = await getWritingSeo(slug);
-  if (!seoData) return null;
+  const { slug } = params
+  const seoData = await getWritingSeo(slug)
+  if (!seoData) return null
 
   const {
     date,
     seo: { title, description },
-    sys: { firstPublishedAt, publishedAt: updatedAt },
-  } = seoData;
+    sys: { firstPublishedAt, publishedAt: updatedAt }
+  } = seoData
 
-  const siteUrl = `/writing/${slug}`;
-  const postDate = date || firstPublishedAt;
-  const publishedTime = new Date(postDate).toISOString();
-  const modifiedTime = new Date(updatedAt).toISOString();
+  const siteUrl = `/writing/${slug}`
+  const postDate = date || firstPublishedAt
+  const publishedTime = new Date(postDate).toISOString()
+  const modifiedTime = new Date(updatedAt).toISOString()
 
   return {
     title,
@@ -118,15 +113,15 @@ export async function generateMetadata({ params }: WritingSlugPageProps) {
     openGraph: {
       title,
       description,
-      type: "article",
+      type: 'article',
       publishedTime,
       ...(updatedAt && {
-        modifiedTime,
+        modifiedTime
       }),
-      url: siteUrl,
+      url: siteUrl
     },
     alternates: {
-      canonical: siteUrl,
-    },
-  };
+      canonical: siteUrl
+    }
+  }
 }
