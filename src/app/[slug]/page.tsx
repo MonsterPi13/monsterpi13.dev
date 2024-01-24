@@ -1,43 +1,43 @@
-import { draftMode } from "next/headers";
-import { notFound } from "next/navigation";
+import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 
-import FloatingHeader from "@/components/floating-header";
-import { GradientBg } from "@/components/gradient-bg";
-import PageTitle from "@/components/page-title";
-import { ScrollArea } from "@/components/scroll-area";
-import { getPage, getAllPageSlugs } from "@/lib/contentful";
-import { isDevelopment } from "@/lib/utils";
-import RickText from "@/components/contentful/rich-text";
+import FloatingHeader from '@/components/floating-header'
+import { GradientBg } from '@/components/gradient-bg'
+import PageTitle from '@/components/page-title'
+import { ScrollArea } from '@/components/scroll-area'
+import { getPage, getAllPageSlugs, getPageSeo } from '@/lib/contentful'
+import { isDevelopment } from '@/lib/utils'
+import RickText from '@/components/contentful/rich-text'
 
 interface PageProps {
   params: {
-    slug: string;
-  };
+    slug: string
+  }
 }
 
 export async function generateStaticParams() {
-  const allPages = await getAllPageSlugs();
+  const allPages = await getAllPageSlugs()
 
   return allPages
     .filter((page: any) => !page.hasCustomPage) // filter out pages that have custom pages, e.g. /journey
     .map((page: any) => ({
-      slug: page.slug,
-    }));
+      slug: page.slug
+    }))
 }
 
 async function fetchData(slug: string) {
-  const { isEnabled } = draftMode();
-  const page = await getPage(slug, isDevelopment ? true : isEnabled);
-  if (!page) notFound();
-  return { page };
+  const { isEnabled } = draftMode()
+  const page = await getPage(slug, isDevelopment ? true : isEnabled)
+  if (!page) notFound()
+  return { page }
 }
 
-async function SlugPage({ params }: PageProps) {
-  const { slug } = params;
+export default async function SlugPage({ params }: PageProps) {
+  const { slug } = params
 
   const {
-    page: { title, content },
-  } = await fetchData(slug);
+    page: { title, content }
+  } = await fetchData(slug)
 
   return (
     <ScrollArea className="flex flex-col" hasScrollTitle>
@@ -50,7 +50,29 @@ async function SlugPage({ params }: PageProps) {
         </div>
       </div>
     </ScrollArea>
-  );
+  )
 }
 
-export default SlugPage;
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = params
+  const seoData = await getPageSeo(slug)
+  if (!seoData) return null
+
+  const {
+    seo: { title, description }
+  } = seoData
+  const siteUrl = `/${slug}`
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: siteUrl
+    },
+    alternates: {
+      canonical: siteUrl
+    }
+  }
+}
