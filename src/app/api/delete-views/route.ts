@@ -1,5 +1,4 @@
 import supabase from '@/lib/supabase/private'
-import { getPostById } from '@/lib/contentful'
 
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -15,12 +14,9 @@ export async function POST(request: NextRequest) {
   const { id } = data
   if (!id) return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 })
 
-  const slug = await getPostById(id)
-
   try {
-    const res = await supabase.rpc('delete_view_count', { page_slug: slug })
-    console.log('[res]', res)
-    return NextResponse.json({ messsage: `View count Deleted successfully for slug: ${slug}` }, { status: 200 })
+    const res = await supabase.rpc('delete_view_count', { id: id })
+    return NextResponse.json({ messsage: `View count Deleted successfully for id: ${id}` }, { status: 200 })
   } catch (error: any) {
     console.error('Error incrementing view count:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })

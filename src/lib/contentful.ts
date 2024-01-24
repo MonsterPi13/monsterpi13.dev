@@ -105,28 +105,6 @@ export async function getPost(slug: string, preview = isDevelopment) {
   return entry?.data?.postCollection?.items?.[0]
 }
 
-export async function getPostById(id: string, preview = isDevelopment) {
-  const entry = await fetchGraphQL(
-    `query {
-      postCollection(where: { sys: {id: "${id}"}  }, preview: ${preview}, limit: 1) {
-        items {
-          slug
-        }
-      }
-    }`,
-    preview
-  )
-  console.log(`query {
-    postCollection(where: { sys: {id: "${id}"}  }, preview: ${preview}, limit: 1) {
-      items {
-        slug
-      }
-    }
-  }`)
-
-  return entry?.data?.postCollection?.items?.[0]?.slug
-}
-
 export async function getWritingSeo(slug: string, preview = isDevelopment) {
   const entry = await fetchGraphQL(
     `query {
