@@ -1,28 +1,23 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { Button } from "./ui/button";
+import Link from 'next/link'
+import { Button } from './ui/button'
 
-import { cn } from "@/lib/utils";
-import { ScrollArea } from "./scroll-area";
+import { cn } from '@/lib/utils'
+import { ScrollArea } from './scroll-area'
 
 interface SideMenuProps {
-  title?: string;
-  href?: string;
-  isInner?: boolean;
+  title?: string
+  href?: string
+  isInner?: boolean
 }
 
-const SideMenu = ({
-  title,
-  href,
-  children,
-  isInner = false,
-}: React.PropsWithChildren<SideMenuProps>) => {
+const SideMenu = ({ title, href, children, isInner = false }: React.PropsWithChildren<SideMenuProps>) => {
   return (
     <ScrollArea
       className={cn(
-        "hidden bg-zinc-50 lg:flex lg:flex-col lg:border-r",
-        isInner ? "lg:w-80 xl:w-96" : "lg:w-60 xl:w-72"
+        'hidden bg-zinc-50 lg:flex lg:flex-col lg:border-r',
+        isInner ? 'lg:w-80 xl:w-96' : 'lg:w-60 xl:w-72'
       )}
     >
       {title && (
@@ -36,7 +31,7 @@ const SideMenu = ({
       )}
       <div className="bg-zinc-50 p-3">{children}</div>
     </ScrollArea>
-  );
-};
+  )
+}
 
-export default SideMenu;
+export default SideMenu

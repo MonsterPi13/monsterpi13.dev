@@ -25,6 +25,7 @@ const WritingLink = ({ post, viewCount, isMobile }: WritingLinkProps) => {
     <LazyMotion features={domAnimation}>
       <Link
         key={post.slug}
+        prefetch={false}
         href={`/writing/${post.slug}`}
         className={cn(
           'flex flex-col gap-1 transition-colors duration-300',
