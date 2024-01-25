@@ -13,8 +13,7 @@ async function fetchGraphQL(query: string, preview = isDevelopment) {
       }`
     },
     body: JSON.stringify({ query }),
-    next: { tags: ['articles'] },
-    cache: 'no-cache'
+    next: { tags: ['articles'] }
   })
   if (!res.ok) return undefined
   return res.json()
