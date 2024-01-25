@@ -26,7 +26,7 @@ export default async function Home() {
         <div className="content">
           <PageTitle title="Home" className="lg:hidden" />
           <p>
-            {`Hi! 👋 I'm Tristan (or Peng, if you prefer). I'm a software engineer and Dota enthusiast based in Nanjing, China.`}
+            {`Hi! 👋 I'm Tristan (or Peng, if you prefer). I currently live in Nanjing, China. In my spare time I enjoy movies and Dota2.`}
           </p>
           <p>
             I am currently a Senior Frontend Software Engineer at Enn Group. Previously, I led front-end architecture at
