@@ -10,7 +10,8 @@ export async function POST(request: NextRequest) {
   }
 
   const path = requestHeaders.get('path') ?? '/'
-  revalidatePath(path, 'page')
+  console.log('[path]', path)
+  revalidatePath(path)
 
   return NextResponse.json({ revalidated: true, now: Date.now() }, { status: 200 })
 }
