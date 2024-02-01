@@ -17,6 +17,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "contentful": "^10.6.16",
+    "feed": "^4.2.2",
     "framer-motion": "^10.18.0",
     "lucide-react": "^0.312.0",
     "markdown-to-jsx": "^7.4.0",

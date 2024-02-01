@@ -5,6 +5,7 @@ import { Button } from './ui/button'
 
 import { cn } from '@/lib/utils'
 import { ScrollArea } from './scroll-area'
+import { RadioIcon } from 'lucide-react'
 
 interface SideMenuProps {
   title?: string
@@ -26,6 +27,12 @@ const SideMenu = ({ title, href, children, isInner = false }: React.PropsWithChi
             <div className="text-sm font-semibold tracking-tight">
               {href ? <Link href={href}>{title}</Link> : <span>{title}</span>}
             </div>
+            <Button variant="outline" size="xs" asChild>
+              <Link href="/writing.xml" title="RSS feed" target="_blank" rel="noopener noreferrer">
+                <RadioIcon size={16} className="mr-2" />
+                RSS feed
+              </Link>
+            </Button>
           </div>
         </div>
       )}
