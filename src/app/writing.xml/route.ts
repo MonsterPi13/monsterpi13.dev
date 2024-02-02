@@ -28,7 +28,7 @@ export async function GET() {
 
   sortedPosts.forEach((post) => {
     feed.addItem({
-      id: post.slug,
+      // id: post.slug,
       // guid: post.slug,
       title: post.title,
       link: `${siteURL}/writing/${post.slug}`,
