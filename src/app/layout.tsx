@@ -1,7 +1,7 @@
 import { draftMode } from 'next/headers'
 import { Exo_2, Mukta } from 'next/font/google'
 import { EyeIcon } from 'lucide-react'
-import { sharedDescription, sharedTitle } from '@/shared-metadata'
+import { sharedDescription, sharedTitle } from '@/app/shared-metadata'
 import { PROFILES } from '@/lib/constants'
 import './globals.css'
 
