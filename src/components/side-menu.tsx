@@ -1,11 +1,13 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { RadioIcon } from 'lucide-react'
 import { Button } from './ui/button'
 
 import { cn } from '@/lib/utils'
 import { ScrollArea } from './scroll-area'
-import { RadioIcon } from 'lucide-react'
+import { useKeyPress } from '@/hooks/useKeyPress'
 
 interface SideMenuProps {
   title?: string
@@ -14,6 +16,22 @@ interface SideMenuProps {
 }
 
 const SideMenu = ({ title, href, children, isInner = false }: React.PropsWithChildren<SideMenuProps>) => {
+  const router = useRouter()
+  useKeyPress(onKeyPress, ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6'])
+
+  function onKeyPress(event: KeyboardEvent) {
+    event.preventDefault()
+
+    if (event.code === 'Digit1') {
+      router.push('/')
+    } else if (event.code === 'Digit2') {
+      router.push('/writing')
+    } else if (event.code === 'Digit3') {
+      router.push('/journey')
+    } else if (event.code === 'Digit4') {
+      router.push('/stack')
+    }
+  }
   return (
     <ScrollArea
       className={cn(
