@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   }
 
   const path = requestHeaders.get('path') ?? '/'
-  revalidatePath(path)
+  revalidatePath(path, 'layout')
 
   return NextResponse.json(
     { revalidated: true, message: `Revalidation request for path: ${path} is successful`, now: Date.now() },
