@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import { Drawer } from "vaul";
-import { CommandIcon } from "lucide-react";
+import { Drawer } from 'vaul'
+import { CommandIcon } from 'lucide-react'
 
-import { Button } from "./ui/button";
-import MenuContent from "./menu-content";
+import { Button } from './ui/button'
+import MenuContent from './menu-content'
 
 const MobileDrawer = () => {
   return (
@@ -24,7 +24,7 @@ const MobileDrawer = () => {
         </Drawer.Content>
       </Drawer.Portal>
     </Drawer.Root>
-  );
-};
+  )
+}
 
-export default MobileDrawer;
+export default MobileDrawer

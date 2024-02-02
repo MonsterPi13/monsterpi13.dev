@@ -1,6 +1,6 @@
 const LoadingSpinner = () => {
   return (
-    <div className="grid place-content-center h-screen w-full">
+    <div className="grid h-screen w-full place-content-center">
       <div
         className="inline-block h-4 w-4 animate-spin rounded-full border-[2px] border-current border-t-transparent text-black"
         role="status"
@@ -9,7 +9,7 @@ const LoadingSpinner = () => {
         <span className="sr-only">Loading...</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoadingSpinner;
+export default LoadingSpinner

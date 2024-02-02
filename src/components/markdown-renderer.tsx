@@ -1,14 +1,14 @@
-import Image from "next/image";
-import Markdown from "markdown-to-jsx";
-import { TweetCard } from "./tweet-card/tweet-card";
-import { Link } from "@/components/link";
+import Image from 'next/image'
+import Markdown from 'markdown-to-jsx'
+import { TweetCard } from './tweet-card/tweet-card'
+import { Link } from '@/components/link'
 
-import type { MarkdownToJSX } from "markdown-to-jsx";
+import type { MarkdownToJSX } from 'markdown-to-jsx'
 
 interface MarkdownRendererProps {
-  options?: MarkdownToJSX.Options;
-  children: string;
-  [key: string]: any;
+  options?: MarkdownToJSX.Options
+  children: string
+  [key: string]: any
 }
 
 const MarkdownRenderer = ({ options, ...rest }: MarkdownRendererProps) => {
@@ -20,7 +20,7 @@ const MarkdownRenderer = ({ options, ...rest }: MarkdownRendererProps) => {
           a: ({ className, ...rest }) => <Link {...rest} />,
           p: ({ children }) => <p className="mb-2 text-sm">{children}</p>,
           img: ({ alt, src }) => (
-            <span className="mt-2 block overflow-hidden rounded0xl border">
+            <span className="rounded0xl mt-2 block overflow-hidden border">
               <Image
                 src={`https:${src}`}
                 alt={alt}
@@ -31,12 +31,12 @@ const MarkdownRenderer = ({ options, ...rest }: MarkdownRendererProps) => {
               />
             </span>
           ),
-          tweet: ({ id }) => <TweetCard id={id} />,
-        },
+          tweet: ({ id }) => <TweetCard id={id} />
+        }
       }}
       {...rest}
     />
-  );
-};
+  )
+}
 
-export default MarkdownRenderer;
+export default MarkdownRenderer

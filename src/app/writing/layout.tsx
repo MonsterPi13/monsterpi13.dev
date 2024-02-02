@@ -1,21 +1,21 @@
-import { Suspense } from "react";
+import { Suspense } from 'react'
 
-import SideMenu from "@/components/side-menu";
-import LoadingSpinner from "@/components/loading-spinner";
-import { WritingListLayout } from "@/components/writing/writing-list-layout";
-import { getAllPosts } from "@/lib/contentful";
-import { getSortedPosts } from "@/lib/utils";
+import SideMenu from '@/components/side-menu'
+import LoadingSpinner from '@/components/loading-spinner'
+import { WritingListLayout } from '@/components/writing/writing-list-layout'
+import { getAllPosts } from '@/lib/contentful'
+import { getSortedPosts } from '@/lib/utils'
 
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren } from 'react'
 
 async function fetchData() {
-  const allPosts = await getAllPosts();
-  return { allPosts };
+  const allPosts = await getAllPosts()
+  return { allPosts }
 }
 
 export default async function WritingLayout({ children }: PropsWithChildren) {
-  const { allPosts } = await fetchData();
-  const sortedPosts = getSortedPosts(allPosts);
+  const { allPosts } = await fetchData()
+  const sortedPosts = getSortedPosts(allPosts)
 
   return (
     <>
@@ -26,5 +26,5 @@ export default async function WritingLayout({ children }: PropsWithChildren) {
       </SideMenu>
       <div className="lg:bg-dots flex-1">{children}</div>
     </>
-  );
+  )
 }

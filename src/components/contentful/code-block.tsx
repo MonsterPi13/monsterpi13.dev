@@ -1,33 +1,33 @@
-"use client";
+'use client'
 
-import { useEffect, useState, useRef } from "react";
-import { highlight } from "sugar-high";
-import { LazyMotion, domAnimation, m } from "framer-motion";
+import { useEffect, useState, useRef } from 'react'
+import { highlight } from 'sugar-high'
+import { LazyMotion, domAnimation, m } from 'framer-motion'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 
 interface CodeBlockProps {
-  title: string;
-  code: string;
+  title: string
+  code: string
 }
 
 export function CodeBlock({ title, code }: CodeBlockProps) {
-  const codeRef = useRef(null);
-  const [copied, setCopied] = useState(false);
-  const codeHTML = highlight(code);
+  const codeRef = useRef(null)
+  const [copied, setCopied] = useState(false)
+  const codeHTML = highlight(code)
 
   const onCopy = () => {
-    setCopied(true);
-    navigator.clipboard.writeText(code);
-    setTimeout(() => setCopied(false), 3000);
-  };
+    setCopied(true)
+    navigator.clipboard.writeText(code)
+    setTimeout(() => setCopied(false), 3000)
+  }
 
   useEffect(() => {
-    const codeElem = codeRef.current;
+    const codeElem = codeRef.current
     if (codeElem) {
-      (codeElem as HTMLAreaElement).innerHTML = codeHTML;
+      ;(codeElem as HTMLAreaElement).innerHTML = codeHTML
     }
-  }, [codeHTML]);
+  }, [codeHTML])
 
   return (
     <>
@@ -40,16 +40,10 @@ export function CodeBlock({ title, code }: CodeBlockProps) {
           </span>
           {title && <p className="m-0 text-sm font-medium">{title}</p>}
         </div>
-        <Button
-          variant="outline"
-          size="xs"
-          className="rounded-lg"
-          disabled={copied}
-          onClick={onCopy}
-        >
+        <Button variant="outline" size="xs" className="rounded-lg" disabled={copied} onClick={onCopy}>
           <LazyMotion features={domAnimation}>
             <m.span
-              key={copied ? "copied" : "copy"}
+              key={copied ? 'copied' : 'copy'}
               initial={{ opacity: 0, y: 2 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -2 }}
@@ -104,5 +98,5 @@ export function CodeBlock({ title, code }: CodeBlockProps) {
         </pre>
       </div>
     </>
-  );
+  )
 }

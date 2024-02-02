@@ -1,25 +1,25 @@
-import { Suspense } from "react";
+import { Suspense } from 'react'
 
-import FloatingHeader from "@/components/floating-header";
-import LoadingSpinner from "@/components/loading-spinner";
-import { ScrollArea } from "@/components/scroll-area";
-import { getAllPosts, getPageSeo } from "@/lib/contentful";
-import { getSortedPosts } from "@/lib/utils";
-import { WritingListLayout } from "../../components/writing/writing-list-layout";
+import FloatingHeader from '@/components/floating-header'
+import LoadingSpinner from '@/components/loading-spinner'
+import { ScrollArea } from '@/components/scroll-area'
+import { getAllPosts, getPageSeo } from '@/lib/contentful'
+import { getSortedPosts } from '@/lib/utils'
+import { WritingListLayout } from '../../components/writing/writing-list-layout'
 
 async function fetchData() {
-  const allPosts = await getAllPosts();
-  return { allPosts };
+  const allPosts = await getAllPosts()
+  return { allPosts }
 }
 
 export async function generateMetadata() {
-  const seoData = await getPageSeo("writing");
-  if (!seoData) return null;
+  const seoData = await getPageSeo('writing')
+  if (!seoData) return null
 
   const {
-    seo: { title, description },
-  } = seoData;
-  const siteUrl = "/writing";
+    seo: { title, description }
+  } = seoData
+  const siteUrl = '/writing'
 
   return {
     title,
@@ -27,17 +27,17 @@ export async function generateMetadata() {
     openGraph: {
       title,
       description,
-      url: siteUrl,
+      url: siteUrl
     },
     alternates: {
-      canonical: siteUrl,
-    },
-  };
+      canonical: siteUrl
+    }
+  }
 }
 
 export default async function Writing() {
-  const { allPosts } = await fetchData();
-  const sortedPosts = getSortedPosts(allPosts);
+  const { allPosts } = await fetchData()
+  const sortedPosts = getSortedPosts(allPosts)
 
   return (
     <ScrollArea className="flex flex-col lg:hidden">
@@ -46,5 +46,5 @@ export default async function Writing() {
         <WritingListLayout list={sortedPosts} isMobile></WritingListLayout>
       </Suspense>
     </ScrollArea>
-  );
+  )
 }

@@ -1,40 +1,30 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { LazyMotion, domAnimation, m } from "framer-motion";
+import Link from 'next/link'
+import { LazyMotion, domAnimation, m } from 'framer-motion'
 
-import { useViewData } from "@/hooks/useViewData";
-import {
-  cn,
-  dateWithDayAndMonthFormatter,
-  dateWithMonthAndYearFormatter,
-  viewCountFormatter,
-} from "@/lib/utils";
+import { useViewData } from '@/hooks/useViewData'
+import { cn, dateWithDayAndMonthFormatter, dateWithMonthAndYearFormatter, viewCountFormatter } from '@/lib/utils'
 
-import { PostItem } from "@/types/contentful";
+import { PostItem } from '@/types/contentful'
 
 interface WritingListProps {
-  items: PostItem[];
+  items: PostItem[]
 }
 
 const WritingList = ({ items }: WritingListProps) => {
-  const viewData = useViewData();
-  const itemsByYear: [number, PostItem[]][] = items.reduce(
-    (acc: [number, PostItem[]][], item: PostItem) => {
-      const year = new Date(
-        item.date || item.sys.firstPublishedAt
-      ).getFullYear();
-      const yearArr = acc.find((item) => item[0] === year);
-      if (!yearArr) {
-        acc.push([year, [item]]);
-      } else {
-        yearArr[1].push(item);
-      }
+  const viewData = useViewData()
+  const itemsByYear: [number, PostItem[]][] = items.reduce((acc: [number, PostItem[]][], item: PostItem) => {
+    const year = new Date(item.date || item.sys.firstPublishedAt).getFullYear()
+    const yearArr = acc.find((item) => item[0] === year)
+    if (!yearArr) {
+      acc.push([year, [item]])
+    } else {
+      yearArr[1].push(item)
+    }
 
-      return acc;
-    },
-    []
-  );
+    return acc
+  }, [])
 
   return (
     <LazyMotion features={domAnimation}>
@@ -52,7 +42,7 @@ const WritingList = ({ items }: WritingListProps) => {
 
         <div className="group/list-wrapper">
           {itemsByYear.map((item) => {
-            const [year, itemsArr] = item;
+            const [year, itemsArr] = item
 
             return (
               <ul className="group/list list-none" key={year}>
@@ -61,19 +51,14 @@ const WritingList = ({ items }: WritingListProps) => {
                     title,
                     slug,
                     date,
-                    sys: { firstPublishedAt },
-                  } = item;
-                  const dateObj = new Date(date || firstPublishedAt);
-                  const dateWithDayAndMonth =
-                    dateWithDayAndMonthFormatter.format(dateObj);
-                  const dateWithMonthAndYear =
-                    dateWithMonthAndYearFormatter.format(dateObj);
+                    sys: { firstPublishedAt }
+                  } = item
+                  const dateObj = new Date(date || firstPublishedAt)
+                  const dateWithDayAndMonth = dateWithDayAndMonthFormatter.format(dateObj)
+                  const dateWithMonthAndYear = dateWithMonthAndYearFormatter.format(dateObj)
 
-                  const { view_count } =
-                    viewData?.find((item) => item.slug === slug) ?? {};
-                  const formattedViewCount = view_count
-                    ? viewCountFormatter.format(view_count)
-                    : null;
+                  const { view_count } = viewData?.find((item) => item.slug === slug) ?? {}
+                  const formattedViewCount = view_count ? viewCountFormatter.format(view_count) : null
 
                   return (
                     <li
@@ -82,11 +67,11 @@ const WritingList = ({ items }: WritingListProps) => {
                     >
                       <span
                         className={cn(
-                          "pointer-events-none col-span-1 hidden items-center tabular-nums transition-colors duration-300 group-hover/list:text-gray-900 md:grid",
-                          itemIndex === 0 && "border-t border-gray-200"
+                          'pointer-events-none col-span-1 hidden items-center tabular-nums transition-colors duration-300 group-hover/list:text-gray-900 md:grid',
+                          itemIndex === 0 && 'border-t border-gray-200'
                         )}
                       >
-                        {itemIndex === 0 ? year : ""}
+                        {itemIndex === 0 ? year : ''}
                       </span>
                       <Link
                         href={`/writing/${slug}`}
@@ -101,9 +86,7 @@ const WritingList = ({ items }: WritingListProps) => {
                               {dateWithMonthAndYear}
                             </time>
                           </span>
-                          <span className="col-span-2 line-clamp-4 md:col-span-6">
-                            {title}
-                          </span>
+                          <span className="col-span-2 line-clamp-4 md:col-span-6">{title}</span>
                           <span className="col-span-1">
                             {formattedViewCount ? (
                               <m.span
@@ -124,15 +107,15 @@ const WritingList = ({ items }: WritingListProps) => {
                         </span>
                       </Link>
                     </li>
-                  );
+                  )
                 })}
               </ul>
-            );
+            )
           })}
         </div>
       </div>
     </LazyMotion>
-  );
-};
+  )
+}
 
-export default WritingList;
+export default WritingList

@@ -1,19 +1,14 @@
-import { IframeHTMLAttributes } from "react";
-import { ShowInView } from "../show-in-view";
-import { cn } from "@/lib/utils";
+import { IframeHTMLAttributes } from 'react'
+import { ShowInView } from '../show-in-view'
+import { cn } from '@/lib/utils'
 
 interface IframeProps extends IframeHTMLAttributes<HTMLIFrameElement> {
-  embedUrl: string;
-  title: string;
-  className: string;
+  embedUrl: string
+  title: string
+  className: string
 }
 
-export default function Iframe({
-  embedUrl,
-  title,
-  className,
-  ...rest
-}: IframeProps) {
+export default function Iframe({ embedUrl, title, className, ...rest }: IframeProps) {
   return (
     <ShowInView>
       <figure>
@@ -21,16 +16,11 @@ export default function Iframe({
           src={embedUrl}
           title={title}
           allowFullScreen
-          className={cn(
-            "w-full rounded border-0 border-none shadow-lg",
-            className
-          )}
+          className={cn('w-full rounded border-0 border-none shadow-lg', className)}
           {...rest}
         />
-        <figcaption className="mt-2 break-words text-center text-sm text-gray-500">
-          {title}
-        </figcaption>
+        <figcaption className="mt-2 break-words text-center text-sm text-gray-500">{title}</figcaption>
       </figure>
     </ShowInView>
-  );
+  )
 }

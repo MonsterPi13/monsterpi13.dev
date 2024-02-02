@@ -1,25 +1,25 @@
-"use client";
+'use client'
 
-import { useViewData } from "@/hooks/useViewData";
-import { viewCountFormatter } from "@/lib/utils";
-import { LazyMotion, domAnimation, m } from "framer-motion";
+import { useViewData } from '@/hooks/useViewData'
+import { viewCountFormatter } from '@/lib/utils'
+import { LazyMotion, domAnimation, m } from 'framer-motion'
 
 interface WritingViewsProps {
-  slug: string;
+  slug: string
 }
 
 const WritingViews = ({ slug }: WritingViewsProps) => {
-  const viewData = useViewData(slug);
-  const { view_count } = viewData?.[0] ?? {};
-  if (!view_count) return <m.span key={`${slug}-views-loading`} />;
-  const formattedViewCount = viewCountFormatter.format(view_count);
+  const viewData = useViewData(slug)
+  const { view_count } = viewData?.[0] ?? {}
+  if (!view_count) return <m.span key={`${slug}-views-loading`} />
+  const formattedViewCount = viewCountFormatter.format(view_count)
 
   return (
     <LazyMotion features={domAnimation}>
       <m.div
         key={`${slug}-views-loaded`}
         className="flex items-center text-sm"
-        title={`${formattedViewCount} ${formattedViewCount === "1" ? "view" : "views"}`}
+        title={`${formattedViewCount} ${formattedViewCount === '1' ? 'view' : 'views'}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -46,7 +46,7 @@ const WritingViews = ({ slug }: WritingViewsProps) => {
         <span>{formattedViewCount}</span>
       </m.div>
     </LazyMotion>
-  );
-};
+  )
+}
 
-export default WritingViews;
+export default WritingViews

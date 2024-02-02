@@ -1,18 +1,13 @@
-import { Tweet, TweetSkeleton } from "react-tweet";
+import { Tweet, TweetSkeleton } from 'react-tweet'
 
-import { cn } from "@/lib/utils";
-import styles from "@/components/tweet-card/tweet-card.module.css";
+import { cn } from '@/lib/utils'
+import styles from '@/components/tweet-card/tweet-card.module.css'
 
 export const TweetCard = ({ id }: { id: string }) => {
-  if (!id) return null;
+  if (!id) return null
 
   return (
-    <div
-      className={cn(
-        "thumbnail-shadow relative w-full min-w-full overflow-hidden rounded-xl",
-        styles.tweetCard
-      )}
-    >
+    <div className={cn('thumbnail-shadow relative w-full min-w-full overflow-hidden rounded-xl', styles.tweetCard)}>
       <Tweet
         id={id}
         fallback={
@@ -22,5 +17,5 @@ export const TweetCard = ({ id }: { id: string }) => {
         }
       />
     </div>
-  );
-};
+  )
+}

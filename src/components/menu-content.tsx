@@ -1,20 +1,15 @@
-import Image from "next/image";
-import Link from "next/link";
-import { LINKS, PROFILES } from "@/lib/constants";
-import NavigationLink from "./navigation-link";
+import Image from 'next/image'
+import Link from 'next/link'
+import { LINKS, PROFILES } from '@/lib/constants'
+import NavigationLink from './navigation-link'
 
 const MenuContent = () => {
   return (
-    <div className="flex flex-col w-full text-sm">
+    <div className="flex w-full flex-col text-sm">
       <div className="flex flex-col gap-4">
         <Link href="/" className="link-card inline-flex items-center gap-2 p-2">
-          <div className="relative w-10 h-10 rounded-full">
-            <Image
-              src="/assets/me.jpeg"
-              alt="avatar"
-              fill
-              className="rounded-full"
-            />
+          <div className="relative h-10 w-10 rounded-full">
+            <Image src="/assets/me.jpeg" alt="avatar" fill className="rounded-full" />
           </div>
           <div className="flex flex-col">
             <span className="font-semibold tracking-tight">Tristan Ruan</span>
@@ -24,20 +19,13 @@ const MenuContent = () => {
 
         <div className="flex flex-col gap-1">
           {LINKS.map((link, index) => (
-            <NavigationLink
-              key={index}
-              shortcutNumber={index + 1}
-              {...link}
-              Icon={<link.Icon size={16} />}
-            />
+            <NavigationLink key={index} shortcutNumber={index + 1} {...link} Icon={<link.Icon size={16} />} />
           ))}
         </div>
       </div>
       <hr />
       <div className="flex flex-col gap-2 text-sm">
-        <span className="px-2 text-xs font-medium leading-relaxed text-gray-600">
-          Online
-        </span>
+        <span className="px-2 text-xs font-medium leading-relaxed text-gray-600">Online</span>
         <div className="flex flex-col gap-1">
           {Object.values(PROFILES).map((profile, index) => (
             <NavigationLink
@@ -51,7 +39,7 @@ const MenuContent = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MenuContent;
+export default MenuContent
