@@ -9,6 +9,8 @@ import RichText from '@/components/contentful/rich-text'
 import { getDateTimeFormat, isDevelopment } from '@/lib/utils'
 import { getPost, getWritingSeo, getAllPostSlugs } from '@/lib/contentful'
 
+import type { Metadata } from 'next'
+
 interface WritingSlugPageProps {
   params: {
     slug: string
@@ -18,6 +20,41 @@ interface WritingSlugPageProps {
 export async function generateStaticParams() {
   const allPosts = await getAllPostSlugs()
   return allPosts.map((post) => ({ slug: post.slug }))
+}
+
+export async function generateMetadata({ params }: WritingSlugPageProps) {
+  const { slug } = params
+  const seoData = await getWritingSeo(slug)
+  if (!seoData) return null
+
+  const {
+    date,
+    seo: { title, description },
+    sys: { firstPublishedAt, publishedAt: updatedAt }
+  } = seoData
+
+  const siteUrl = `/writing/${slug}`
+  const postDate = date || firstPublishedAt
+  const publishedTime = new Date(postDate).toISOString()
+  const modifiedTime = new Date(updatedAt).toISOString()
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      publishedTime,
+      ...(updatedAt && {
+        modifiedTime
+      }),
+      url: siteUrl
+    },
+    alternates: {
+      canonical: siteUrl
+    }
+  }
 }
 
 async function fetchData(slug: string) {
@@ -87,39 +124,4 @@ export default async function WritingSlugPage({ params }: WritingSlugPageProps) 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd, null, 2) }} />
     </>
   )
-}
-
-export async function generateMetadata({ params }: WritingSlugPageProps) {
-  const { slug } = params
-  const seoData = await getWritingSeo(slug)
-  if (!seoData) return null
-
-  const {
-    date,
-    seo: { title, description },
-    sys: { firstPublishedAt, publishedAt: updatedAt }
-  } = seoData
-
-  const siteUrl = `/writing/${slug}`
-  const postDate = date || firstPublishedAt
-  const publishedTime = new Date(postDate).toISOString()
-  const modifiedTime = new Date(updatedAt).toISOString()
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: 'article',
-      publishedTime,
-      ...(updatedAt && {
-        modifiedTime
-      }),
-      url: siteUrl
-    },
-    alternates: {
-      canonical: siteUrl
-    }
-  }
 }

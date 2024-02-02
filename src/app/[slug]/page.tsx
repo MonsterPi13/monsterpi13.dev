@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 
@@ -23,6 +24,34 @@ export async function generateStaticParams() {
     .map((page: any) => ({
       slug: page.slug
     }))
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = params
+  console.log('[slug]', slug)
+  const seoData = await getPageSeo(slug)
+  if (!seoData) return null
+
+  const {
+    seo: { title, description }
+  } = seoData
+  const siteUrl = `/${slug}`
+
+  console.log('[title]', title)
+  console.log('[description]', description)
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: siteUrl
+    },
+    alternates: {
+      canonical: siteUrl
+    }
+  }
 }
 
 async function fetchData(slug: string) {
@@ -51,28 +80,4 @@ export default async function SlugPage({ params }: PageProps) {
       </div>
     </ScrollArea>
   )
-}
-
-export async function generateMetadata({ params }: PageProps) {
-  const { slug } = params
-  const seoData = await getPageSeo(slug)
-  if (!seoData) return null
-
-  const {
-    seo: { title, description }
-  } = seoData
-  const siteUrl = `/${slug}`
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      url: siteUrl
-    },
-    alternates: {
-      canonical: siteUrl
-    }
-  }
 }

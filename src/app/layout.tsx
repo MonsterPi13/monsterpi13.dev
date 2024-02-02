@@ -1,69 +1,65 @@
-import { draftMode } from "next/headers";
-import { Exo_2 } from "next/font/google";
-import { EyeIcon } from "lucide-react";
-import { sharedDescription, sharedTitle } from "@/shared-metadata";
-import { PROFILES } from "@/lib/constants";
-import "./globals.css";
+import { draftMode } from 'next/headers'
+import { Exo_2 } from 'next/font/google'
+import { EyeIcon } from 'lucide-react'
+import { sharedDescription, sharedTitle } from '@/shared-metadata'
+import { PROFILES } from '@/lib/constants'
+import './globals.css'
 
-import SideMenu from "@/components/side-menu";
-import MenuContent from "@/components/menu-content";
-import { cn } from "@/lib/utils";
+import SideMenu from '@/components/side-menu'
+import MenuContent from '@/components/menu-content'
+import { cn } from '@/lib/utils'
 
-import type { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from 'next'
 
 const exo2 = Exo_2({
-  subsets: ["latin"],
-});
+  subsets: ['latin']
+})
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://monsterpi13.dev"),
+  metadataBase: new URL('https://monsterpi13.dev'),
   robots: {
     index: true,
-    follow: true,
+    follow: true
   },
   title: {
     template: `%s - ${sharedTitle}`,
-    default: sharedTitle,
+    default: sharedTitle
   },
   description: sharedDescription,
   openGraph: {
     title: {
       template: `%s - ${sharedTitle}`,
-      default: sharedTitle,
+      default: sharedTitle
     },
     description: sharedDescription,
-    type: "website",
-    url: "/",
+    type: 'website',
+    url: '/',
     siteName: sharedTitle,
-    locale: "zh_CN",
+    locale: 'zh_CN'
   },
   alternates: {
-    canonical: "/",
+    canonical: '/'
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
     site: `@${PROFILES.twitter.url}`,
-    creator: `@${PROFILES.twitter.username}`,
+    creator: `@${PROFILES.twitter.username}`
   },
   other: {
-    pinterest: "nopin",
-  },
-};
+    pinterest: 'nopin'
+  }
+}
 
 export const viewport: Viewport = {
-  themeColor: "white",
-  colorScheme: "only light",
-  width: "device-width",
+  themeColor: 'white',
+  colorScheme: 'only light',
+  width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-};
+  maximumScale: 1
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const { isEnabled } = draftMode();
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const { isEnabled } = draftMode()
 
   return (
     <html lang="en" className={cn(exo2.className)}>
@@ -86,5 +82,5 @@ export default function RootLayout({
         </main>
       </body>
     </html>
-  );
+  )
 }
