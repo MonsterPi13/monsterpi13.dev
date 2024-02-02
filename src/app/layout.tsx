@@ -1,5 +1,5 @@
 import { draftMode } from 'next/headers'
-import { Exo_2 } from 'next/font/google'
+import { Exo_2, Mukta } from 'next/font/google'
 import { EyeIcon } from 'lucide-react'
 import { sharedDescription, sharedTitle } from '@/shared-metadata'
 import { PROFILES } from '@/lib/constants'
@@ -13,6 +13,11 @@ import type { Metadata, Viewport } from 'next'
 
 const exo2 = Exo_2({
   subsets: ['latin']
+})
+
+const mukta = Mukta({
+  subsets: ['latin'],
+  weight: '400'
 })
 
 export const metadata: Metadata = {
@@ -62,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const { isEnabled } = draftMode()
 
   return (
-    <html lang="en" className={cn(exo2.className)}>
+    <html lang="en" className={cn(mukta.className, exo2.className)}>
       <body>
         <main vaul-drawer-wrapper="" className="flex min-h-screen bg-white">
           {isEnabled && (

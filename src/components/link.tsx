@@ -1,9 +1,9 @@
-import NextLink from "next/link";
+import NextLink from 'next/link'
 
-import { isExternalLink } from "@/lib/utils";
+import { isExternalLink } from '@/lib/utils'
 
-export const Link = ({ href = "#", ...rest }) => {
-  const isExternal = isExternalLink(href);
+export const Link = ({ href = '#', ...rest }) => {
+  const isExternal = isExternalLink(href)
 
   if (isExternal) {
     return (
@@ -14,8 +14,8 @@ export const Link = ({ href = "#", ...rest }) => {
         className="link break-words after:content-['_↗']"
         {...rest}
       />
-    );
+    )
   }
 
-  return <NextLink href={href} className="link" {...rest} />;
-};
+  return <NextLink href={href} className="link" {...rest} />
+}
