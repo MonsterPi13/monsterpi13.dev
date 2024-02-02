@@ -29,7 +29,7 @@ export async function GET() {
   sortedPosts.forEach((post) => {
     feed.addItem({
       id: post.slug,
-      guid: post.slug,
+      // guid: post.slug,
       title: post.title,
       link: `${siteURL}/writing/${post.slug}`,
       date: new Date(post.date || post.sys.firstPublishedAt),
