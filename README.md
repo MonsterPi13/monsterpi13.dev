@@ -1,6 +1,6 @@
 # monsterpi13.dev
 
-<img src="/github/cover.png" width="500" />
+<img src="github/cover.png" width="500" />
 
 This is the code for my personal blog site at [https://www.monsterpi13.dev](https://www.monsterpi13.dev), forked from
 [onur.dev](https://github.com/suyalcinkaya/onur.dev) 🍴.
