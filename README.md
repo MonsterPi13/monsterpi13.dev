@@ -1,6 +1,6 @@
 # monsterpi13.dev
 
-<img src="github/cover.png" width="500" />
+<img src="github/cover.png" />
 
 This is the code for my personal blog site at [https://www.monsterpi13.dev](https://www.monsterpi13.dev), forked from
 [onur.dev](https://github.com/suyalcinkaya/onur.dev) 🍴.
@@ -65,6 +65,8 @@ pnpm run dev
 5. Populate space
 
 ### Contentful model
+
+<img src="github/content_model.jpg" />
 
 1. Inline entry(Which will be as inline entry inserted into the rich text, like `post`)
 
