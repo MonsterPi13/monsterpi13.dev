@@ -64,6 +64,57 @@ pnpm run dev
 4. Import content model
 5. Populate space
 
+### Contentful model
+
+1. Inline entry(Which will be as inline entry inserted into the rich text, like `post`)
+
+- CodeBlock
+
+  - title `Short Text`
+  - code `Long Text`
+
+- ContentEmbed
+
+  - title `Short Text`
+  - embedUrl `Short Text`
+  - type `Short Text`(Accept only specified values)
+    - Video
+    - SoundCloud
+
+- Tweet
+  - id `Short Text` (Tweet id)
+
+2. logbook - for the content of the `/journey`
+
+- title `Short Text`
+- date `Date&Time`
+- description `Long Text`
+- image `Media`
+
+3. post - For the content of the `/writing/[slug]`
+
+- title `Short Text`
+- description `Short Text`
+- slug `Short Text`
+- date `Date&time`
+- content `Rich Text`
+- seo `Reference`
+
+4. page - For dynamic routes, like `/writing`, `/stack`
+
+- title Short Text
+- content Rich Text
+- slug Short Text
+- hasCustomPage Boolean
+- seo Reference
+
+5. seo - Reusable SEO, will be related with the extra content type
+
+- title Short Text
+- description Short Text
+- ogImageTitle Short Text
+- ogImageSubtitle Short Text
+
 ### Deployment
 
 The site can be easily deployed on Vercel, Netlify, etc:
