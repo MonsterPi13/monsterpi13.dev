@@ -93,7 +93,7 @@ pnpm run dev
 - description `Long Text`
 - image `Media`
 
-3. post - For the content of the `/writing/[slug]`
+3. post - for the content of the `/writing/[slug]`
 
 - title `Short Text`
 - description `Short Text`
@@ -102,7 +102,7 @@ pnpm run dev
 - content `Rich Text`
 - seo `Reference`
 
-4. page - For dynamic routes, like `/writing`, `/stack`
+4. page - for dynamic routes, like `/writing`, `/stack`
 
 - title Short Text
 - content Rich Text
@@ -110,7 +110,7 @@ pnpm run dev
 - hasCustomPage Boolean
 - seo Reference
 
-5. seo - Reusable SEO, will be related with the extra content type
+5. seo - reusable SEO, will be set as reference for other content type
 
 - title Short Text
 - description Short Text
