@@ -9,7 +9,7 @@ const MenuContent = () => {
       <div className="flex flex-col gap-4">
         <Link href="/" className="link-card inline-flex items-center gap-2 p-2">
           <div className="relative h-10 w-10 rounded-full">
-            <Image src="/assets/me.jpeg" alt="avatar" fill className="rounded-full" />
+            <Image src="/assets/me.jpg" alt="avatar" fill className="rounded-full" />
           </div>
           <div className="flex flex-col">
             <span className="font-semibold tracking-tight">Tristan Ruan</span>
